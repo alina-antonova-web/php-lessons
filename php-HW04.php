@@ -3,7 +3,7 @@
 function greeting($name = "Гость") {
 	echo "Привет $name! ";
 	$today = getdate();
-	if ( $today[wday] < 6 ) {
+	if ( $today[wday] > 0 and $today[wday] < 6 ) {
 		echo "Хорошего и продуктивного рабочего дня!";
 	} else {
 		echo "Желаю вам хорошо отдохнуть в этот день!";

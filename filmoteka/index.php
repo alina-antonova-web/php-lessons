@@ -1,11 +1,36 @@
 <?php 
 $link = mysqli_connect('localhost', 'test_db', '123qwe', 'test_db');
-mysqli_select_db('test_db', $link);
-mysqli_set_charset('utf8',$link);
+mysqli_select_db($link, 'test_db');
+mysqli_set_charset($link, 'utf8');
 
 if ( mysqli_connect_error() ) {
   die("Ошибка подключения к базе данных.");
 }
+
+if (!empty($_POST) and array_key_exists('add_film', $_POST) ){
+  if ($_POST['title'] == '') {
+    $answer = "<div class='error'>Название фильма не может быть пустым.</div>";
+  } else if ($_POST['genre'] == '') {
+    $answer = "<div class='error'>Жанр фильма не может быть пустым.</div>";
+  } else if ($_POST['year'] == '') {
+    $answer = "<div class='error'>Год фильма не может быть пустым.</div>";
+  } else {
+    $add_query = "INSERT INTO `filmoteka` (`title`, `genre`, `year`) VALUES (  
+        '" . mysqli_real_escape_string($link, $_POST['title']) . "',
+        '" . mysqli_real_escape_string($link, $_POST['genre']) . "',
+        '" . mysqli_real_escape_string($link, $_POST['year']) . "' 
+      ) ";
+
+    if (mysqli_query($link, $add_query) ) {
+      $answer = "<div style='color:green;'>Фильм успешно добавлен!</div>";
+    } else {
+      $answer = "<div style='color:red;'>Произошла ошибка при добавлении фильма!</div>";
+    }
+  }
+  
+}
+
+
 
 ?>
 
@@ -46,44 +71,11 @@ if ( mysqli_connect_error() ) {
             }
           }
       ?>
-      <div class="card mb-20">
-        <h4 class="title-4">Такси 2</h4>
-        <div class="badge">комедия</div>
-        <div class="badge">2000</div>
-      </div>
-      <div class="card mb-20">
-        <h4 class="title-4">Облачный атлас</h4>
-        <div class="badge">драма</div>
-        <div class="badge">2012</div>
-      </div>
       <div class="panel-holder mt-80 mb-40">
         <div class="title-4 mt-0">Добавить фильм</div>
         <form action="index.php" method="POST">
-          <?php if (!empty($_POST) and array_key_exists('add_film', $_POST) ){
-              if ($_POST['title'] == '') {
-                echo "<div class='error'>Название фильма не может быть пустым.</div>";
-              } else if ($_POST['genre'] == '') {
-                echo "<div class='error'>Жанр фильма не может быть пустым.</div>";
-              } else if ($_POST['year'] == '') {
-                echo "<div class='error'>Год фильма не может быть пустым.</div>";
-              } else {
-                $add_query = "INSERT INTO `filmoteka` (`title`, `genre`, `year`) VALUES (  
-                    '" . mysqli_real_escape_string($link, $_POST['title']) . "',
-                    '" . mysqli_real_escape_string($link, $_POST['genre']) . "',
-                    '" . mysqli_real_escape_string($link, $_POST['year']) . "' 
-                  ) ";
-
-                if (mysqli_query($link, $add_query) ) {
-                  echo "<div style='color:green;'>Фильм успешно добавлен!</div>";
-                } else {
-                  echo "<div style='color:red;'>Произошла ошибка при добавлении фильма!</div>";
-                }
-              }
-              
-            }
-
-            ?>
           
+          <?php echo $answer; ?>
           <label class="label-title">Название фильма</label>
           <input class="input" type="text" placeholder="Такси 2" name="title"/>
           <div class="row">
