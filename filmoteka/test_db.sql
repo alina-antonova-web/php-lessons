@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 31, 2018 at 12:40 PM
+-- Generation Time: Apr 10, 2018 at 02:00 PM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
--- PHP Version: 7.0.22-0ubuntu0.16.04.1
+-- PHP Version: 7.0.28-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,12 +38,12 @@ CREATE TABLE `filmoteka` (
 --
 
 INSERT INTO `filmoteka` (`id`, `title`, `genre`, `year`) VALUES
-(1, 'Такси 2', 'комедия', 2000),
 (2, 'Облачный атлас', 'драма', 2012),
 (4, 'Ночной дозор', 'фэнтази', 2004),
 (5, 'Дневной Дозор', 'фантастика', 2005),
-(6, 'Побег из Шоушенка', 'драма', 1994),
-(7, 'Зеленая миля', 'драма', 1999);
+(7, 'Зеленая миля', 'драма', 1999),
+(12, 'Такси 4', 'комедия', 2008),
+(13, 'Элизиум', 'фантастика', 2016);
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `filmoteka`
 --
 ALTER TABLE `filmoteka`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `users`
 --

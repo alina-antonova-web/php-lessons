@@ -7,13 +7,32 @@ if ( mysqli_connect_error() ) {
   die("Ошибка подключения к базе данных.");
 }
 
+
+if (!empty($_GET) and array_key_exists('action', $_GET) ){
+  // echo "<pre>";
+  // print_r($_GET);
+  // echo "</pre>";
+
+  // DELETE FILM
+  if ($_GET['action'] == 'delete'){
+    $delete_query = "DELETE FROM `filmoteka` WHERE `id` = '".mysqli_real_escape_string($link, $_GET['id'])."' LIMIT 1";
+    mysqli_query($link, $delete_query);
+    if (mysqli_affected_rows($link) ) {
+      $resultInfo = "<div  class='info-notification'>Фильм успешно удален!</div>";
+    } 
+    // else {
+    //   $resultInfo = "<div  class='error'>Произошла ошибка при удалении фильма!</div>";
+    // }
+  }
+}
+
 if (!empty($_POST) and array_key_exists('add_film', $_POST) ){
   if ($_POST['title'] == '') {
-    $answer = "<div class='error'>Название фильма не может быть пустым.</div>";
+    $formError = "<div class='error'>Название фильма не может быть пустым.</div>";
   } else if ($_POST['genre'] == '') {
-    $answer = "<div class='error'>Жанр фильма не может быть пустым.</div>";
+    $formError = "<div class='error'>Жанр фильма не может быть пустым.</div>";
   } else if ($_POST['year'] == '') {
-    $answer = "<div class='error'>Год фильма не может быть пустым.</div>";
+    $formError = "<div class='error'>Год фильма не может быть пустым.</div>";
   } else {
     $add_query = "INSERT INTO `filmoteka` (`title`, `genre`, `year`) VALUES (  
         '" . mysqli_real_escape_string($link, $_POST['title']) . "',
@@ -22,9 +41,9 @@ if (!empty($_POST) and array_key_exists('add_film', $_POST) ){
       ) ";
 
     if (mysqli_query($link, $add_query) ) {
-      $answer = "<div style='color:green;'>Фильм успешно добавлен!</div>";
+      $resultInfo = "<div class='info-success'>Фильм успешно добавлен!</div>";
     } else {
-      $answer = "<div style='color:red;'>Произошла ошибка при добавлении фильма!</div>";
+      $resultInfo = "<div class='error'>Произошла ошибка при добавлении фильма!</div>";
     }
   }
   
@@ -58,13 +77,24 @@ if (!empty($_POST) and array_key_exists('add_film', $_POST) ){
     <div class="container user-content pt-35">
       <h1 class="title-1"> Фильмотека</h1>
       <?php 
+
+          if (@$resultInfo != '') {
+            echo $resultInfo;
+          }
+
           $query = "SELECT * FROM filmoteka";
 
           if ( $result = mysqli_query($link, $query) ) {
             while ( $row = mysqli_fetch_array($result) ) {
 
               echo "<div class='card mb-20'>
-                      <h4 class='title-4'>". $row['title'] ."</h4>
+                      <div class='card__header'>
+                        <h4 class='title-4'>". $row['title'] ."</h4>
+                        <div class='buttons'>
+                          <a href='edit.php?id=". $row['id'] ."' class='button button--edit'>Редактировать</a>
+                          <a href='?action=delete&id=". $row['id'] ."' class='button button--delete'>Удалить</a>
+                        </div>
+                      </div>
                       <div class='badge'>". $row['genre'] ."</div>
                       <div class='badge'>". $row['year'] ."</div>
                     </div>";
@@ -73,9 +103,8 @@ if (!empty($_POST) and array_key_exists('add_film', $_POST) ){
       ?>
       <div class="panel-holder mt-80 mb-40">
         <div class="title-4 mt-0">Добавить фильм</div>
+        <?php if (@$formError != '' ) { echo $formError; } ?>
         <form action="index.php" method="POST">
-          
-          <?php echo $answer; ?>
           <label class="label-title">Название фильма</label>
           <input class="input" type="text" placeholder="Такси 2" name="title"/>
           <div class="row">
