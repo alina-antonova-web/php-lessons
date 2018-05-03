@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 10, 2018 at 02:00 PM
--- Server version: 5.7.21-0ubuntu0.16.04.1
+-- Generation Time: May 03, 2018 at 02:55 PM
+-- Server version: 5.7.22-0ubuntu0.16.04.1
 -- PHP Version: 7.0.28-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -30,20 +30,21 @@ CREATE TABLE `filmoteka` (
   `id` int(11) NOT NULL,
   `title` text NOT NULL,
   `genre` text NOT NULL,
-  `year` int(11) NOT NULL
+  `year` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `photo` char(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `filmoteka`
 --
 
-INSERT INTO `filmoteka` (`id`, `title`, `genre`, `year`) VALUES
-(2, 'Облачный атлас', 'драма', 2012),
-(4, 'Ночной дозор', 'фэнтази', 2004),
-(5, 'Дневной Дозор', 'фантастика', 2005),
-(7, 'Зеленая миля', 'драма', 1999),
-(12, 'Такси 4', 'комедия', 2008),
-(13, 'Элизиум', 'фантастика', 2016);
+INSERT INTO `filmoteka` (`id`, `title`, `genre`, `year`, `description`, `photo`) VALUES
+(2, 'Облачный атлас', 'драма', 2012, '      Шесть историй — пять реинкарнаций, происходящих в разное время, тесно переплетаются между собой…    ', '736317996308.jpg'),
+(4, 'Ночной дозор', 'фэнтази', 2004, '  ', '852022107876.jpg'),
+(5, 'Дневной Дозор', 'фантастика', 2005, '  ', '432172215916.jpg'),
+(7, 'Зеленая миля', 'драма', 1999, '  ', '288179622450.jpg'),
+(22, 'Властилин колец', 'фэнтази', 2001, 'Сказания о Средиземье — это хроника Великой войны за Кольцо, войны, длившейся не одну тысячу лет. Тот, кто владел Кольцом, получал власть над всеми живыми тварями, но был обязан служить злу.', '780113647831.jpg');
 
 -- --------------------------------------------------------
 
@@ -91,7 +92,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `filmoteka`
 --
 ALTER TABLE `filmoteka`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `users`
 --

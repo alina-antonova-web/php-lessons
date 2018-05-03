@@ -740,7 +740,7 @@ a.button--login:active {
   transition: -webkit-box-shadow 0.2s ease-in;
   transition: box-shadow 0.2s ease-in;
   transition: box-shadow 0.2s ease-in, -webkit-box-shadow 0.2s ease-in;
-  height: 200px;
+  height: 100px;
   resize: vertical;
 }
 .textarea:active,
@@ -1314,8 +1314,8 @@ a.title,
 }
 .admin-nav__link {
   margin-right: 20px;
-  color: #000;
-  text-decoration: none;
+  color: #037ec6;
+  text-decoration: underline;
 }
 .admin-nav__link:hover {
   color: #037ec6;
