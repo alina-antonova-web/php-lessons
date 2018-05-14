@@ -8,5 +8,7 @@ define('MYSQL_DB','test_db');
 define('HOST', 'http://'.$_SERVER['HTTP_HOST'].'/php-lessons/filmoteka/');
 define('ROOT', dirname(__FILE__).'/');
 
+session_start();
+
 //phpinfo();
 ?>

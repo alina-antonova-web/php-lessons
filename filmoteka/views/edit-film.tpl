@@ -29,7 +29,7 @@
 	  		  	<img height="200" src="<?=HOST?>data/films/min/<?=$film['photo']?>" alt="<?=$film['title']?>">
 	  		</div>
 	  		<div class="col">
-	  			<input type="file" name="photo"/>
+	  			<input type="file" name="photo" />
 	  		</div>
 	  	</div>
       	

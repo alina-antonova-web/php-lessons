@@ -1,6 +1,7 @@
 <?php 
 
 require('config.php');
+require_once( ROOT . "/functions/login-functions.php");
 require('database.php');
 $link = db_connect();
 
